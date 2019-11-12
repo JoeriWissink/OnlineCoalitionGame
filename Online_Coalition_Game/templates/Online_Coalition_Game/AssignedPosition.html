@@ -1,0 +1,63 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    You negotiate for party {{ player.position }}
+{% endblock %}
+
+{% block content %}
+
+    {% if not earned %}
+
+    <p>
+        The random draw is over
+
+        <li><strong class="text-success">Party A</strong> received <strong class="text-success">{{ resources_player_A }} seats</strong>.</li>
+        <li><strong class="text-success">Party B</strong> received <strong class="text-success">{{ resources_player_B }} seats</strong>.</li>
+        <li><strong class="text-success">Party C</strong> received <strong class="text-success">{{ resources_player_C }} seats</strong>.</li>
+    </p>
+
+
+     <p>
+         This means that the total amount of seats is <strong class="text-success">{{ subsession.resources_ABC }}</strong>.
+         Moreover, the total budget for the municipality is <strong class="text-success">${{ total_payoff }} million</strong>.
+    </p>
+
+    <p>
+        You are the negotiator for <strong class="text-info">party {{ player.position }}</strong>.
+        You have received <strong class="text-info">{{ player.resources }} seats</strong>.
+    </p>
+
+    {% elif earned  %}
+
+    <p>
+        The elections are over.
+        <li><strong class="text-success">Party A</strong> came in first and earned <strong class="text-success">{{ resources_player_A }} seats</strong>.</li>
+        <li><strong class="text-success">Party B</strong> came in second and earned <strong class="text-success">{{ resources_player_B }} seats</strong>.</li>
+        <li><strong class="text-success">Party C</strong> came in third and earned <strong class="text-success">{{ resources_player_C }} seats</strong>.</li>
+    </p>
+
+
+    <p>
+        This means that the total amount of seats is <strong class="text-success">{{ subsession.resources_ABC }}</strong>. The total budget for the municipality
+        is <strong class="text-success">${{ total_payoff }} million</strong>.
+    </p>
+
+     <p>
+         You are the negotiator for <strong class="text-info">party {{ player.position }}</strong>. You came in
+         {% if player.position == 'A' %}first
+         {% elif player.position == 'B'%} second
+         {% elif player.position == 'C' %} third
+         {% endif %}
+         and have earned <strong class="text-info">{{ player.resources }} seats</strong>.
+    </p>
+
+
+    {% endif %}
+
+    <p>On the next page you will find what this means for the coalition formation negotiations.</p>
+
+
+    {% next_button %}
+
+{% endblock %}

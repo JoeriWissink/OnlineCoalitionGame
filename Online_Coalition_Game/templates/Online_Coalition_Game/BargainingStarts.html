@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Negotiations are about to begin
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        You and the other participants will now start bargaining.
+    </p>
+
+    <p>
+        To recap, bargaining has three phases:
+        <li>Phase I: Making an offer: Everyone makes an offer indicating which coalition they want to form and indicating how they want to distribute the ${{ total_payoff }} million among the coalition members.
+        </li>
+        <li>
+            Phase II: Choosing offers: Everyone selects the coalition offer they want to execute.
+        </li>
+        <li>
+            Phase III: Seeing chosen offers: Everyone sees which offers are chosen. A coalition is formed when two representatives have selected the same offer. If this has not happened, a new round of bargaining starts.
+        </li>
+    </p>
+
+    {% next_button %}
+
+{% endblock %}

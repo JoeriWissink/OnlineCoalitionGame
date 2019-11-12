@@ -1,0 +1,90 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    End of negotiation {% if incentives == True %} - Bonus {% endif %}
+{% endblock %}
+
+{% block styles %}
+<style>
+    p.wv {
+        margin: 0px !important;
+    }
+</style>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+    {% if subsession.round_number == Constants.num_rounds %}
+
+
+    <p>The maximum number of rounds has been reached. It has taken the three of you too long to form a coalition. </p>
+    <p>This means that, in addition to your base fee, you have not been able to obtain a bonus payment.</p>
+
+    {% else %}
+
+    <p>
+        A {{ group.formed_coalition_name }}-coalition has been formed:
+        {% if group.formed_coalition_name == 'AB' and group.payoff_A > 0 or group.formed_coalition_name == 'AC' and group.payoff_A > 0 or group.formed_coalition_name == 'ABC' and group.payoff_A > 0 %}
+            Party A{% if player.position == 'A' %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %} has received ${{ group.payoff_A }} million.{% endif %}
+        {% if group.formed_coalition_name == 'AB' and group.payoff_B > 0 or group.formed_coalition_name == 'BC' and group.payoff_B > 0 or group.formed_coalition_name == 'ABC' and group.payoff_B > 0 %}
+            Party B{% if player.position == 'B' %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %} has received ${{ group.payoff_B }} million.{% endif %}
+        {% if group.formed_coalition_name == 'BC' and group.payoff_C > 0 or group.formed_coalition_name == 'AC' and group.payoff_C > 0 or group.formed_coalition_name == 'ABC' and group.payoff_C > 0 %}
+            Party C{% if player.position == 'C' %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %} has received ${{ group.payoff_C }} million.{% endif %}
+    </p>
+
+
+
+    {% if incentives == True %}
+
+    <p>
+        For you, this has the following consequences:
+    </p>
+
+
+
+    <p>
+        {% if player.payoff > 0 %}
+         In the negotiation, you have received,
+        <strong class="text-success">${{player.money}} million</strong>.
+         For every $1 million, you will obtain a bonus of ${{ payoff_conversion }}.
+         This means that, in addition to the base fee of ${{ base_fee }}, you will receive a bonus of:
+         <strong class="text-success">{{player.payoff}}</strong>.
+        {% endif %}
+
+        {% if player.participant.payoff == 0 %}
+         In the negotiation, you did not obtain a share of the budget.
+         This means that you will receive no bonus payment in addition to the base fee of ${{ base_fee }}.
+        {% endif %}
+    </p>
+
+    {% endif %}
+
+    <p>
+        Please go to the next page to answer some final questions before claiming your payment.
+    </p>
+
+    {% endif %}
+
+
+    <p>
+        Note: The interaction phase of the study has ended.
+        This means you will have no time limit for the last few pages.
+    </p>
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+        {% next_button %}
+    </div>
+</div>
+{% endblock %}

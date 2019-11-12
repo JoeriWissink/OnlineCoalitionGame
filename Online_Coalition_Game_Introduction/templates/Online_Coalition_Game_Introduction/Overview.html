@@ -1,0 +1,96 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Overview
+{% endblock %}
+
+{% block content %}
+
+    <div id="overview">
+
+        <p>
+            This study will have three parts.
+        </p>
+
+        <p>
+            First, we will explain the bargaining situation and how you will negotiate with the two other participants.
+
+                In this part of the study there will be no time limit.
+
+            Please read all instructions carefully to make sure you understand the situation.
+        </p>
+
+        <p>
+            Second, you will negotiate with two other participants for a sum of money
+            {% if incentives %}
+                that will be converted in a bonus payment.
+            {% endif %}
+
+
+                During this part, you will have to complete each page in {{ timeout_time_minutes }}0 minutes.
+                This is to ensure that others are not waiting too long.
+
+        </p>
+
+
+        <p>
+            Third, we will ask you some questions about you and about the study.
+
+                During this part of the study there will be no time limit.
+
+        </p>
+
+
+        <p>
+            On the next screen you will receive information about the seats that can be obtained by each party.
+        </p>
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+    </div>
+
+
+    <div id="warning">
+
+    <p class="text-danger">
+        Dear participant,<br><br>
+        This experiment does not work on Internet Explorer and Microsoft Edge. Please use another browser, such as google chrome or firefox to continue.
+    </p>
+
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+    <script>
+
+    $(document).ready(function () {
+
+        var overview = $("#overview");
+        var warning = $("#warning");
+        warning.hide();
+
+    if (navigator.appName == 'Microsoft Internet Explorer' ||  !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv:11/)) || (typeof $.browser !== "undefined" && $.browser.msie == 1))
+{
+  overview.hide();
+  warning.show();
+}
+
+    if (window.navigator.userAgent.indexOf("Edge") > -1)
+    {overview.hide();
+  warning.show();}
+    })
+
+</script>
+
+{% endblock %}

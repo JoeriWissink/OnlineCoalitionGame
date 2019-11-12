@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Quiz 2/3
+{% endblock %}
+
+{% block content %}
+
+
+
+
+    {% formfield player.comprehension_exclusion with label="How much money does the landowner that is not in the coalition get?" %}
+
+
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Bargaining Situation
+{% endblock %}
+
+{% block content %}
+
+        <p>
+            We will now explain the bargaining situation.
+
+            Please read these instructions carefully.
+			{% if comprehension_check == True %}
+                Afterwards, we will ask you some questions about them.
+            {% endif %}
+        </p>
+
+        <p>
+            You and two other individuals are hired to negotiate for a political party in a newly formed municipality.
+            All three of you are hired by your respective political party to negotiate on behalf of your party.
+            All three parties are very motivated to govern the new municipality and obtain the available budget to implement their own plans.
+            For your convenience, we will label the parties with a letter: party A, party B, and party C.
+            You will later learn which party you negotiate for.
+        </p>
+
+        <p>
+            As negotiators, you and the other two participants are hired to negotiate a place in the municipal government.
+            You must negotiate about which coalition is formed.
+            Moreover, you must negotiate about how to distribute the available budget among the members of the coalition.
+        </p>
+
+        {% if incentives %}
+
+        <p>
+            <strong>Note: How much of the budget you secure for your party determines your bonus payment.
+                It will be directly converted into a real monetary bonus for this study.</strong>
+        </p>
+
+        {% endif %}
+
+        <p>
+            On the next screen you will receive information about the seats that can be obtained by each party.
+        </p>
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

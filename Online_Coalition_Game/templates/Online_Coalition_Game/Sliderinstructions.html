@@ -1,0 +1,34 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Instructions Slider
+{% endblock %}
+
+{% block content %}
+
+        <p>
+            On the next page, you will go to the real slider task.
+            Remember that the amount of sliders that you and the other participants complete determines
+            your amount of seats.
+        </p>
+
+        <p>
+            The slider task will consist of three rounds.
+            As in the test round, in each round there will be a total of 21 sliders.
+            In each round, you will have {{ slider_time }} seconds to complete as many sliders as possible.
+            A slider is completed when it is exactly positioned in the middle, at number 50.
+        </p>
+
+        <p>
+            Please continue to go to the slider task.
+        </p>
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

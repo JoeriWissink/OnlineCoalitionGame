@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Phase I: Offers Made
+{% endblock %}
+
+
+{% block content %}
+
+    <p>
+        Everyone has made their offer. Click next to find out which offers were made.
+    </p>
+
+    <div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Forming groups
+{% endblock %}
+
+{% block content %}
+
+        {% if earned %}
+
+        <p>
+            Before continuing to the actual slider task, you will first be matched with two other participants
+            whom will take the position of the two other negotiators.
+        </p>
+
+        {% endif %}
+
+
+    {% if not earned %}
+
+        <p>
+            Before receiving more information on which coalitions can be formed, you will first be matched to two other participants
+            whom will take the position of the two other negotiators.
+        </p>
+
+        {% endif %}
+
+
+
+
+        <p>
+            Note that after groups have been formed the interactive part of the study begins.
+            During this part, you will have to complete each page in {{ timeout_time_minutes }}0 minutes.
+            This is to ensure that others are not waiting too long.
+        </p>
+
+
+
+        <p>
+            Please click next to go the matching page.
+        </p>
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

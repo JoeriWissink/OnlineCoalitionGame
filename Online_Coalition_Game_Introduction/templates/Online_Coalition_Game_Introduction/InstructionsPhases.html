@@ -1,0 +1,72 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Bargaining Phases
+{% endblock %}
+
+{% block content %}
+
+        <p>
+            We will now explain how negotiations will proceed.
+            As mentioned before, you will have to decide with whom you want to form a coalition and how you want to distribute the available budget.
+            The other negotiators face the same decisions.
+            Moreover, a coalition is only formed when all members of a proposed coalition agree on how to distribute the budget.
+            For this reason, negotiations may take one or multiple rounds. Every round consists of 3 phases.
+        </p>
+
+        <h3><strong>Phase I: Making offers</strong></h3>
+        <p>
+            To start negotiations, in Phase I each negotiator makes an offer.
+            An offer consists of: 1) an offer on which coalition you want to form,
+            2) an offer on how you want the budget to be distributed within this coalition;
+            how much do you want for yourself and how much do you want the other to get?
+        </p>
+
+        <p>
+            Note that you can only make offers in which you are involved yourself.
+            For example, the negotiator for party A can only offer to form an AB-coalition (coalition between party A and party B)
+            or an AC-coalition (coalition between party A and C).
+            Because A is not involved in a BC-coalition (coalition between party B and party C), A cannot propose this coalition.
+        </p>
+
+        <h3><strong>Phase II: Choosing offers</strong></h3>
+        <p>
+            After all negotiators made an offer, all negotiators will see all offers.
+            These are the offers that they have made themselves, and the offers that the other parties made.
+            Next, every negotiator chooses the offer with the coalition and budget distribution that they want to execute.
+            This can be an offer that another party made, but also the offer they made themselves.
+        </p>
+
+        <p>
+            Note that you can only choose offers in which you are involved yourself.
+            For example, the negotiator for party B can only offer to form an AB-coalition (coalition between party A and party B)
+            or a BC-coalition (coalition between party B and C).
+            Because B is not involved in an AC-coalition (coalition between party A and party C), B cannot propose this coalition.
+        </p>
+       
+	   <h3><strong>Phase III: Seeing chosen offers</strong></h3>
+        <p>
+            In Phase III, all negotiators receive feedback about which offers are chosen by whom.
+            If two negotiators have selected the same offer, this coalition is formed and the budget is distributed as proposed.
+        </p>
+        
+		<p>
+            Of course, it is also possible that no offer is selected by two negotiators.
+            In this case, no coalition is formed and a new bargaining round starts.
+            All parties will then return to Phase I and make a new offer.
+            This process will continue until two parties formed a coalition.
+        </p>
+
+
+    <p>Please continue to the next page.</p>
+
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

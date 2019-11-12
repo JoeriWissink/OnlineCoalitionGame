@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    End of study
+{% endblock %}
+
+{% block content %}
+
+        <strong>You have failed to complete a page in {{ timeout_time_minutes }}0 minutes.
+            The study has been terminated automatically. Please return this HIT.</strong>
+
+
+{% endblock %}

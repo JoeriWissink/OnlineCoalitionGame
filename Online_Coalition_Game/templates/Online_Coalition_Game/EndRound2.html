@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    End of Round 2
+{% endblock %}
+
+{% block content %}
+
+        <p>
+            End of round 2.
+        </p>
+
+        <p>
+            Please continue to go to round 3 of the slider task.
+        </p>
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

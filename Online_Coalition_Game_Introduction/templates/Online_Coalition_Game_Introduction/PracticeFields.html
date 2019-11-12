@@ -1,0 +1,49 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    How do you make an offer?
+{% endblock %}
+
+{% block content %}
+
+        <p>
+            During the negotiation you will make offers using text boxes.
+            On this page you will practice how to use these.
+        </p>
+
+        <p>
+            Below you find a text box. In such a text box you will type your offer.
+            During bargaining you will make offers in increments of millions.
+            Offers should also be made using integers, so without any decimals.
+        </p>
+            <p>
+            For example, if you want to offer 100 million, you will have to type the number 100, not the number 100,000,000.
+        </p>
+
+        <p>
+            Please practice this below by making an offer of 150 million.
+        </p>
+
+
+        <p>
+            When you have successfully entered an offer of 150 million you can continue to the next page.
+        </p>
+
+    {% formfield player.practice label = False %}
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}
