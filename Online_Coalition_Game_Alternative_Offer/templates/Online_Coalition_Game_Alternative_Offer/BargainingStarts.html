@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Negotiations are about to begin
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        You and the other participants will now start bargaining.
+    </p>
+
+    <p>
+        To recap, bargaining has V phases:
+        <li>Phase I: Making an offer: Everyone makes an offer indicating which coalition they want to form and indicating how they want to distribute the ${{ total_payoff }} million among the coalition members.
+        </li>
+        <li>
+            Phase II: Choosing offers: Everyone selects the coalition offer they want to execute.
+        </li>
+        <li>
+            Phase III: Seeing chosen offers: Everyone sees which offers are chosen. A tentative coalition is formed when two negotiators have selected the same offer.
+        </li>
+        <li>
+            Phase IV: Making an alternative offer: The negotiator not included in the tentative offer makes an alternative offer to one of the negotiators in the tentative coalition.
+        </li>
+        <li>
+            Phase V: Ratyfing the tentative coalition or accepting the alternative offer. Participants choose to ratify the tentative coalition or accept the alternative offer.
+        </li>
+
+    </p>
+
+    {% next_button %}
+
+{% endblock %}

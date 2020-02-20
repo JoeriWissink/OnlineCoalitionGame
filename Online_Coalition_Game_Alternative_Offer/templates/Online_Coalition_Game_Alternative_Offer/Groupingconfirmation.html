@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    You have been matched
+{% endblock %}
+
+{% block content %}
+
+
+		<p> 
+			You have been successfully matched with two other participants.
+        </p>
+
+        {% if earned %}
+
+         <p>
+            Continue to the next page for some last instructions on the slider task.
+         </p>
+        {% elif not earned %}
+         <p>
+            Continue to the next page to learn about the outcome of the random draw.
+         </p>
+
+        {% endif %}
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

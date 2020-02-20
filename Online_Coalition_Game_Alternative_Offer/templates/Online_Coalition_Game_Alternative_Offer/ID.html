@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Completion code
+{% endblock %}
+
+{% block content %}
+
+    <p>
+    Dear Participant,
+    </p>
+
+    <p>
+        Please use the secret completion code found below to complete the HIT. After having done so, you can close this window.
+    </p>
+
+    <p>Your secret completion code is: <strong>{{ player.completion_code }}</strong></p>
+
+    <p>
+        Your participation fee and earned bonus fee will be transferred as soon as possible.
+    </p>
+
+{% endblock %}
+

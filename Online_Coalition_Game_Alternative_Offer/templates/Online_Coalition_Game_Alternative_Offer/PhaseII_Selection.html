@@ -1,0 +1,101 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Phase II: Choosing offers
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+
+        <table class="table table-hover">
+            <thead>
+            <th>Offer Made By</th>
+            <th>Proposed Coalition</th>
+            {% if not earned %}
+                <th>Share party A (received {{ resources_player_A }} seats)
+                {% if player.position == 'A' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            <th>Share party B (received {{ resources_player_B }} seats)
+                {% if player.position == 'B' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            </th>
+            <th>Share party C (received {{ resources_player_C }} seats)
+                {% if player.position == 'C' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            {% elif earned  %}
+            <th>Share party A (earned {{ resources_player_A }} seats)
+                {% if player.position == 'A' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            <th>Share party B (earned {{ resources_player_B }} seats)
+                {% if player.position == 'B' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            </th>
+            <th>Share party C (earned {{ resources_player_C }} seats)
+                {% if player.position == 'C' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+
+            {% endif %}
+            </th>
+            </thead>
+            <tbody>
+            {% for p in group.get_players %}
+                <tr>
+                    <td>
+                        Party {{ p.position }}
+                        {% if p == player %}
+                            <strong class="text-info">(This is you)</strong>
+                        {% endif %}
+                    </td>
+                    <td>{{ p.proposed_coalition }}</td>
+                    <td>{% if p.allocate_to_player_A > 0 %}$ {{ p.allocate_to_player_A }} million{% endif %}</td>
+                    <td>{% if p.allocate_to_player_B > 0 %}$ {{ p.allocate_to_player_B }} million{% endif %}</td>
+                    <td>{% if p.allocate_to_player_C > 0 %}$ {{ p.allocate_to_player_C }} million{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p
+                    class="text-info">Select the coalition you want to form:
+            </p>
+
+            <ul>
+            {% for coalition, offer_summary, a, b, c, pid in offers %}
+            <li>
+                <input required type="radio" name="tentative_selected_coalition" value="{{pid}}">
+                {{coalition}}{% if pid != 'None' %}-Coalition: {% endif %}
+                {% if coalition == 'AB' and a > 0 or coalition == 'AC' and a > 0 or coalition == 'ABC' and a > 0 %}Party A
+                    {% if player.position == "A" %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %}receives ${{ a }} million. {% endif %}
+                {% if coalition == 'AB' and b > 0 or coalition == 'BC' and b > 0 or coalition == 'ABC' and b > 0 %}Party B
+                    {% if player.position == "B" %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %}receives ${{ b }} million. {% endif %}
+                {% if coalition == 'AC' and c > 0 or coalition == 'BC' and c > 0 or coalition == 'ABC' and c > 0 %}Party C
+                    {% if player.position == "C" %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %}receives ${{ c }} million. {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 col-md-offset-11">
+            {% next_button %}
+        </div>
+    </div>
+{% endblock %}

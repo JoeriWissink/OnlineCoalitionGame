@@ -14,7 +14,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'Online_Coalition_Game'
+    name_in_url = 'Online_Coalition_Game_Alternative_Offer'
     players_per_group = 3
     num_rounds = 50
 
@@ -48,6 +48,9 @@ class Subsession(BaseSubsession):
 
         for p in self.get_players():
             p.completion_code = 'DS' + ''.join(random.choices(string.digits, k=4))
+
+        for g in self.get_groups():
+            g.coalition_ratified = 'No_coalition'
 
 
 
@@ -86,13 +89,79 @@ class Group(BaseGroup):
     selected_coalition_allocation_B_player_C = models.IntegerField()
     selected_coalition_allocation_C_player_C = models.IntegerField()
 
+    tentative_selected_coalition_name_player_A = models.StringField()
+    tentative_selected_coalition_name_player_B = models.StringField()
+    tentative_selected_coalition_name_player_C = models.StringField()
+
+    tentative_selected_coalition_allocation_A_player_A = models.IntegerField()
+    tentative_selected_coalition_allocation_B_player_A = models.IntegerField()
+    tentative_selected_coalition_allocation_C_player_A = models.IntegerField()
+
+    tentative_selected_coalition_allocation_A_player_B = models.IntegerField()
+    tentative_selected_coalition_allocation_B_player_B = models.IntegerField()
+    tentative_selected_coalition_allocation_C_player_B = models.IntegerField()
+
+    tentative_selected_coalition_allocation_A_player_C = models.IntegerField()
+    tentative_selected_coalition_allocation_B_player_C = models.IntegerField()
+    tentative_selected_coalition_allocation_C_player_C = models.IntegerField()
+
+    tentative_coalition_formed = models.BooleanField()
+    tentative_formed_coalition_name = models.StringField()
+
+    not_in_tentative = models.StringField()
+
+    tentative_payoff_A = models.IntegerField()
+    tentative_payoff_B = models.IntegerField()
+    tentative_payoff_C = models.IntegerField()
+
+    counter_proposed_coalition_name = models.StringField()
+    counter_allocation_to_player_A = models.IntegerField()
+    counter_allocation_to_player_B = models.IntegerField()
+    counter_allocation_to_player_C = models.IntegerField()
+
+    counter_proposed_coalition_player_A = models.StringField(widget=widgets.RadioSelect, )
+    counter_proposed_coalition_player_B = models.StringField(widget=widgets.RadioSelect, )
+    counter_proposed_coalition_player_C = models.StringField(widget=widgets.RadioSelect, )
+
+    counter_allocation_A_to_A = models.IntegerField()
+    counter_allocation_A_to_B = models.IntegerField()
+    counter_allocation_A_to_C = models.IntegerField()
+
+    counter_allocation_B_to_A = models.IntegerField()
+    counter_allocation_B_to_B = models.IntegerField()
+    counter_allocation_B_to_C = models.IntegerField()
+
+    counter_allocation_C_to_A = models.IntegerField()
+    counter_allocation_C_to_B = models.IntegerField()
+    counter_allocation_C_to_C = models.IntegerField()
+
+    coalition_ratified = models.StringField()
+
+    coalition_ratified_A = models.StringField()
+    coalition_ratified_B = models.StringField()
+    coalition_ratified_C = models.StringField()
+
+
     coalition_formed = models.BooleanField()
     formed_coalition_name = models.StringField()
 
+    coalition_formed_name = models.StringField()
     payoff_A = models.IntegerField()
     payoff_B = models.IntegerField()
     payoff_C = models.IntegerField()
 
+    new_tentative_formed_coalition_name = models.StringField()
+
+    not_in_new_tentative = models.StringField()
+
+    new_tentative_payoff_A = models.IntegerField()
+    new_tentative_payoff_B = models.IntegerField()
+    new_tentative_payoff_C = models.IntegerField()
+
+    new_tentative_coalition_formed = models.BooleanField()
+
+    round_begin = models.StringField()
+    round_end = models.StringField()
 
 class Player(BasePlayer):
 
@@ -134,6 +203,21 @@ class Player(BasePlayer):
     allocate_to_player_A = models.PositiveIntegerField(blank=True, null=True)
     allocate_to_player_B = models.PositiveIntegerField(blank=True, null=True)
     allocate_to_player_C = models.PositiveIntegerField(blank=True, null=True)
+
+    tentative_selected_coalition = models.StringField()
+    tentative_selected_coalition_name = models.StringField()
+    tentative_selected_coalition_allocation_A = models.IntegerField()
+    tentative_selected_coalition_allocation_B = models.IntegerField()
+    tentative_selected_coalition_allocation_C = models.IntegerField()
+
+    counter_proposed_coalition = models.StringField()
+    counter_allocate_to_player_A = models.PositiveIntegerField(blank=True, null=True)
+    counter_allocate_to_player_B = models.PositiveIntegerField(blank=True, null=True)
+    counter_allocate_to_player_C = models.PositiveIntegerField(blank=True, null=True)
+
+    tentative_payoff = models.IntegerField()
+
+    ratify_coalition = models.StringField()
 
     money = models.IntegerField()
 

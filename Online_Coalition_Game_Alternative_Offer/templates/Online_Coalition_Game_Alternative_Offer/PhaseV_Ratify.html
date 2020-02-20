@@ -1,0 +1,130 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    {% if group.tentative_formed_coalition_name != 'ABC' %}
+    Phase V: Ratify coalition or form new tentative coalition
+    {% else %}
+    PHase V: Ratify coalition
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% if group.tentative_formed_coalition_name != 'ABC' %}
+
+    <p>
+        {% if player.position in group.counter_proposed_coalition_name %}
+        Party {{ group.not_in_tentative }} has made an alternative offer to you. Please select whether you want to ratify the
+        tentative {{ group.tentative_formed_coalition_name }}-coalition or accept the alternative offer and form a new tentative coalition with party {{ group.not_in_tentative }}. You can also choose to select neither offer and go to Phase I: Making Offers in a new round.
+        {% else %}
+            Party {{ group.not_in_tentative }} has made an alternative offer to form a {{ group.counter_proposed_coalition_name }}-coalition. Please indicate whether you want to ratify the tentative {{ group.tentative_formed_coalition_name }}-coalition. If you choose not to ratify the tentative coalition and the alternative offer is not accepted you will go to Phase I: Making Offers in a new round.
+        {% endif %}
+
+    {% else %}
+
+        <p>
+            A tentative ABC-coalition has been formed. Please select whether you want to ratify this coaliton. If all parties ratify this coalition, it will be formed. If one of you does not ratify the coalition, you will go to phase I: Making Offers in a new round.
+        </p>
+
+    {% endif %}
+
+    </p>
+
+    <div class="row">
+
+        <table class="table table-hover">
+            <thead>
+            <th>Proposed Coalition</th>
+            {% if not earned %}
+                <th>Share party A (received {{ resources_player_A }} seats)
+                {% if player.position == 'A' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            <th>Share party B (received {{ resources_player_B }} seats)
+                {% if player.position == 'B' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            </th>
+            <th>Share party C (received {{ resources_player_C }} seats)
+                {% if player.position == 'C' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            {% elif earned  %}
+            <th>Share party A (earned {{ resources_player_A }} seats)
+                {% if player.position == 'A' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            <th>Share party B (earned {{ resources_player_B }} seats)
+                {% if player.position == 'B' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            </th>
+            <th>Share party C (earned {{ resources_player_C }} seats)
+                {% if player.position == 'C' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+
+            {% endif %}
+            <th>Tentative coalition or alternative offer</th>
+            </thead>
+            <tbody>
+            {% for coalition, all_A, all_B, all_C, origin  in offers2 %}
+                <tr>
+                    <td>{{ coalition }}</td>
+                    <td>{% if all_A > 0 %}{{ all_A }}{% endif %}</td>
+                    <td>{% if all_B > 0 %}{{ all_B }}{% endif %}</td>
+                    <td>{% if all_C > 0 %}{{ all_C }}{% endif %}</td>
+                    <td>{{ origin }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p
+                    class="text-info">Select the coalition you want to form:
+            </p>
+
+            <ul>
+            {% for coalition, all_A, all_B, all_C, origin in offers %}
+                {% if player.position in coalition or origin == 'no coalition' %}<li>
+                <input required type="radio" name="ratify_coalition" value="{{origin}}">
+                {% if origin != 'None' %}{{coalition}}-coalition, in which{% endif %}
+                {% if coalition == 'AB' and all_A > 0 or coalition == 'AC' and all_A > 0 or coalition == 'ABC' and all_A > 0 %}Party A
+                    {% if player.position == "A" %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %}receives ${{ all_A }} million. {% endif %}
+                {% if coalition == 'AB' and all_B > 0 or coalition == 'BC' and all_B > 0 or coalition == 'ABC' and all_B > 0 %}Party B
+                    {% if player.position == "B" %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %}receives ${{ all_B }} million. {% endif %}
+                {% if coalition == 'AC' and all_C > 0 or coalition == 'BC' and all_C > 0 or coalition == 'ABC' and all_C > 0 %}Party C
+                    {% if player.position == "C" %}
+                        <strong class="text-info">(you)</strong>
+                        {% endif %}receives ${{ all_C }} million. {% endif %}
+                {% if origin == 'Tentative coalition' %}
+                    (Select this option if you want to ratify the tentative coalition. If the other coalition member(s) also select this option you will form this coalition.)
+                {% elif origin == 'Alternative offer' and coalition != "ABC" %}
+                    (Select this option if you want to accept the alternative offer. If you do so, this becomes the new tentative coalition.)
+                 {% elif origin == 'Alternative offer' and coalition == "ABC" %}
+                    (Select this option if you want to accept the alternative offer. This offer becomes the new tentative if all parties selects it.)
+                {% elif origin == 'None' %}
+                    (Select this option if you do not want to attempt to form a coalition this round.)
+                {% endif %}
+            </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1 col-md-offset-11">
+            {% next_button %}
+        </div>
+    </div>
+{% endblock %}

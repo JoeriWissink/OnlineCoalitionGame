@@ -2,20 +2,17 @@
 {% load staticfiles otree_tags %}
 
 {% block title %}
-    Quiz 2/3
+    Phase IV: Alternative offer made
 {% endblock %}
+
 
 {% block content %}
 
+    <p>
+        Party {{group.not_in_tentative}} has made an alternative offer. Click next to find out which offer was made.
+    </p>
 
-
-
-    {% formfield player.comprehension_exclusion with label="How much money does the party that is not in the coalition get?" %}
-
-
-
-
-<div class="row">
+    <div class="row">
     <div class="col-md-1 col-md-offset-11">
     {% next_button %}
     </div>

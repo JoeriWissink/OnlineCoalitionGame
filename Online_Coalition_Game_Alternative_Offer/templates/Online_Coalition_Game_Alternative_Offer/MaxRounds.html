@@ -1,0 +1,25 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Maximum number of rounds reached
+{% endblock %}
+
+{% block content %}
+
+    <p>You have not been able to form a coalition within the allotted number of rounds.</p>
+
+    <p>
+        Please go to the last page to finish the study and claim your base fee of ${{ base_fee }}.
+    </p>
+
+
+    <div class="row">
+    <div class="col-md-1 col-md-offset-11">
+        {% next_button %}
+    </div>
+
+
+{% endblock %}
+
+

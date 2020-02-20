@@ -1,0 +1,120 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Possible Coalitions
+{% endblock %}
+
+{% block content %}
+
+        {% if not earned  %}
+
+        <p>
+            You and the other two participants were randomly assigned to a bargaining position.
+            You are the negotiator for party {{ player.position }}.
+            Below we summarize the details of the outcome of the random draw and its consequences.
+        </p>
+
+
+
+		<p>
+			Party <strong class="text-success">A</strong> has <strong class="text-success">{{resources_player_A}}
+            seats</strong>,
+            party <strong class="text-success">B</strong> has <strong class="text-success">{{resources_player_B}}
+            seats</strong>,
+            and, party <strong class="text-success">C</strong> has
+            <strong class="text-success">{{resources_player_C}} seats</strong>.
+        </p>
+
+        <p>
+            The municipal council has a total of <strong class="text-success">{{ subsession.resources_ABC }} seats</strong> and a total budget of <strong class="text-success">${{ total_payoff }} million</strong>. A majority coalition
+            (that controls <strong class="text-success">at least {{ decision_point }} seats</strong>) is needed to rule the municipality.
+        </p>
+
+        {% elif earned  %}
+
+            <p>
+                You and the other two participants worked on slider tasks to earn seats.
+                You are the negotiator for party {{ player.position }}.
+                Below we summarize the details of the outcome of the elections and its consequences.
+            </p>
+
+
+
+            <p>
+			Party <strong class="text-success">A</strong> has <strong class="text-success">{{resources_player_A}}
+            seats</strong>,
+            party <strong class="text-success">B</strong> has <strong class="text-success">{{resources_player_B}}
+            seats</strong>,
+            and, party <strong class="text-success">C</strong> has
+            <strong class="text-success">{{resources_player_C}} seats</strong>.
+        </p>
+
+            <p>
+                The municipal council has a total of <strong class="text-success">{{ subsession.resources_ABC }} seats</strong> and a total budget of <strong class="text-success">${{ total_payoff }} million</strong>. A majority coalition (that controls <strong class="text-success">at least {{ decision_point }} seats</strong>) is needed to rule the municipality.
+        </p>
+
+         
+        {% endif %}
+
+
+        <p>
+            The following coalitions are thus possible:
+			
+            <ul>
+                {% if 'AB' in possible_coalitions_all %}
+                <li>Party A and party B can form an <strong class="text-success">AB</strong>-coalition
+                     and form a government of <strong class="text-success">{{subsession.resources_AB}} seats</strong>                           together.
+                    To form this coalition, party A and party B must decide how to distribute the budget of
+                    <span class="text-info"> ${{total_payoff}} million</span> among themselves.
+					In this situation, party C would not get a share of the <span class="text-info"> ${{total_payoff}} million</span></li>
+                {% endif %}
+
+
+                {% if 'AC' in possible_coalitions_all %}
+                <li>Party A and party C can form an <strong class="text-success">AC</strong>-coalition
+                     and form a government of <strong class="text-success">{{subsession.resources_AC}} seats</strong>                           together.
+                    To form this coalition, party A and party C must decide how to distribute the budget of
+                    <span class="text-info"> ${{total_payoff}} million</span> among themselves.
+					In this situation, party B would not get a share of the <span class="text-info"> ${{total_payoff}} million</span></li>
+                {% endif %}
+
+                {% if 'BC' in possible_coalitions_all %}
+                <li>Party B and party C can form a <strong class="text-success">BC</strong>-coalition
+                     and form a government of <strong class="text-success">{{subsession.resources_BC}} seats</strong>                           together.
+                    To form this coalition, party B and party C must decide how to distribute the budget of
+                    <span class="text-info"> ${{total_payoff}} million</span> among themselves.
+					In this situation, party A would not get a share of the <span class="text-info"> ${{total_payoff}} million</span></li>
+                {% endif %}
+
+                {% if 'ABC' in possible_coalitions_all %}
+                <li>Party A, party B and party C can form an <strong class="text-success">ABC</strong>-coalition
+                    and form a government of <span class="text-success">{{subsession.resources_ABC}} seats</span> together.
+					To form this coalition, party A, party B, and party C must decide how to distribute the
+                    <span class="text-info"> ${{total_payoff}} million</span> among themselves.</li>
+                {% endif %}
+            </ul>
+        </p>
+
+
+    {%  if incentives %}
+		<p>
+			Crucially, the bonus payment you can earn in this is study is dependent on how well you negotiate.
+            For every $1 million that you get in the negotiation, you will get a bonus payment of ${{ payoff_conversion }}.
+            This means you can earn a bonus ranging from $0 to ${{ max_bonus }}0 on top of your participation fee.
+        </p>
+    {% endif %}
+
+
+		<p>
+            Please continue to the next screen.
+        </p>
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

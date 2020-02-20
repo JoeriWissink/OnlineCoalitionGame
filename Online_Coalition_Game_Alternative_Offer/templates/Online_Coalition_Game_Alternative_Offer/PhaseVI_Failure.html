@@ -1,0 +1,144 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Phase VI: No coalition has been ratified!
+{% endblock %}
+
+{% block styles %}
+    <style>
+        p.wv {
+            margin: 0px !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <p>
+            <strong class="text-danger">No tentative coalition has been ratified. The alternative offer was also not accepted. Hence, you will go to Phase I of a new round and make new offers.</strong>
+
+    </p>
+    <p>
+        Below you can see which offers have been selected.
+    </p>
+
+    <table class="table table-hover">
+            <thead>
+                <th>Tentative coalition or alternative offer</th>
+                <th>Proposed Coalition</th>
+            {% if not earned %}
+                <th>Share party A (received {{ resources_player_A }} seats)
+                {% if player.position == 'A' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            <th>Share party B (received {{ resources_player_B }} seats)
+                {% if player.position == 'B' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            </th>
+            <th>Share party C (received {{ resources_player_C }} seats)
+                {% if player.position == 'C' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            {% elif earned %}
+            <th>Share party A (earned {{ resources_player_A }} seats)
+                {% if player.position == 'A' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            <th>Share party B (earned {{ resources_player_B }} seats)
+                {% if player.position == 'B' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+            </th>
+            <th>Share party C (earned {{ resources_player_C }} seats)
+                {% if player.position == 'C' %}
+                    <strong class="text-info">This is you</strong>
+                {% endif %}</th>
+
+            {% endif %}
+                <th>Proposed By</th>
+                <th>Selected By</th>
+            </thead>
+            <tbody>
+                {% for oldnew,name,all_A,all_B,all_C,prop_A,prop_B,prop_C,sel_A,sel_B,sel_C in offers_dictionary %}
+                <tr class="{% if name == group.formed_coalition_name and all_A == group.payoff_A and all_B == group.payoff_B and all_C == group.payoff_C %}alert alert-success{% endif %}">
+                    <td>{{ oldnew }}</td>
+                    <td>{{name}}-coalition</td>
+                    <td>{% if all_A > 0 %}$ {{all_A|floatformat:"0"}} million
+                            {% endif %}</td>
+                    <td>{% if all_B > 0 %}$ {{all_B|floatformat:"0"}} million
+                            {% endif %}</td>
+                    <td>{% if all_C > 0 %}$ {{all_C|floatformat:"0"}} million
+                            {% endif %}</td>
+                    <td>
+                        {% if prop_A == 1 %}
+                            Party A
+                            {% if player.position == "A" %}
+                                <strong class="text-info">(This is you)</strong>
+                            {% endif %}
+                            <br>
+                        {% endif %}
+                        {% if prop_B == 1 %}
+                            Party B
+                            {% if player.position == "B" %}
+                                <strong class="text-info">(This is you)</strong>
+                            {% endif %}
+                            <br>
+                        {% endif %}
+                        {% if prop_C == 1 %}
+                            Party C
+                            {% if player.position == "C" %}
+                                <strong class="text-info">(This is you)</strong>
+                            {% endif %}
+                            <br>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if sel_A == 1 %}
+                            Party A
+                            {% if player.position == "A" %}
+                                <strong class="text-info">(This is you)</strong>
+                            {% endif %}
+                            <br>
+                        {% endif %}
+                        {% if sel_B == 1 %}
+                            Party B
+                            {% if player.position == "B" %}
+                                <strong class="text-info">(This is you)</strong>
+                            {% endif %}
+                            <br>
+                        {% endif %}
+                        {% if sel_C == 1 %}
+                            Party C
+                            {% if player.position == "C" %}
+                                <strong class="text-info">(This is you)</strong>
+                            {% endif %}
+                            <br>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% if group.coalition_ratified_A == 'no coalition' %}
+        <li>Party A did not select a coalition offer.</li>
+    {% endif %}
+    {% if group.coalition_ratified_B == 'no coalition' %}
+        <li>Party B did not select a coalition offer.</li>
+    {% endif %}
+    {% if group.coalition_ratified_C == 'no coalition' %}
+        <li>Party C did not select a coalition offer.</li>
+    {% endif %}
+
+
+
+
+
+    <div class="row">
+        <div class="col-md-1 col-md-offset-11">
+            {% next_button %}
+        </div>
+    </div>
+{% endblock %}

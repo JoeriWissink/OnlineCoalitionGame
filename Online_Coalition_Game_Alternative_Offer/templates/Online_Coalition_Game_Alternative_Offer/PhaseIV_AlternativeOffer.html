@@ -1,0 +1,505 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Phase IV: Alternative Offer
+{% endblock %}
+
+{% block styles %}
+    <style>
+        ul#allocate_to_players div.form-group {
+            margin-left: 50px;
+        }
+
+        ul#allocate_to_players div.form-group,
+        ul#allocate_to_players div.controls,
+        ul#allocate_to_players div.input-group {
+            display: inline-block;
+
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+    <div id="bargain">
+
+
+        <p>
+            A tentative {{ group.tentative_formed_coalition_name }}-coalition between
+            {% for p in player.get_others_in_group %}
+                <strong class="text-success">party {{ p.position }}</strong>
+                {% if not earned %}
+                (received <strong class="text-success">{{ p.resources }} seats</strong>)
+                {% elif earned %}
+                (earned <strong class="text-success">{{ p.resources }} seats</strong>)
+                {% endif %}
+                {% if not forloop.last %}and{% else %}{% endif %}
+            {% endfor %}
+            , in which
+            {% for p in player.get_others_in_group %}
+                <strong class="text-success">party {{ p.position }}</strong>
+                gets <strong class="text-success">${{ p.tentative_payoff }} million</strong>
+                {% if not forloop.last %}and{% else %}{% endif %}
+            {% endfor %}
+            , has been formed.
+
+
+        <p>
+            As <strong class="text-info">party {{ player.position }}</strong>.
+            with <strong class="text-info">{{ player.resources }} seats</strong>, you are allowed to make an alternative offer.
+        </p>
+
+
+        <p>
+            Please indicate below to which party you want to make an offer to form a coalition
+            and what your offer is on how to distribute the ${{ total_payoff }} million</span>.
+            You can make offers in increments of $1 million.
+        </p>
+
+        <p>
+            Note: You cannot give money to those outside of the coalition.
+        </p>
+
+        <p>
+            Please select which coalition you want to form.
+        </p>
+
+        <p>
+            I want to form the following coalition:
+        </p>
+
+
+        {% if not earned %}
+        {% if player.position == 'A' %}
+            <ul>
+                {% for coalition in possible_coalitions_A %}
+                    <li>
+                        <input data-desc="{{ coalition }}" type="radio" name="counter_proposed_coalition"
+                               value="{{ coalition }}"
+                               required> {{ coalition }}-coalition
+                        {% if coalition == 'AB' %}
+                        (with party B which has received {{ resources_player_B }} seats)
+                        {% elif coalition == 'AC' %}
+                        (with party C which has received {{ resources_player_C }} seats)
+                        {% elif coalition == 'ABC' %}
+                        (with party B which has received {{ resources_player_B }} seats
+                        and
+                        with party C which has received {{ resources_player_C }} seats)
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+        {% elif player.position == 'B' %}
+            <ul>
+                {% for coalition in possible_coalitions_B %}
+                    <li>
+                        <input data-desc="{{ coalition }}" type="radio" name="counter_proposed_coalition"
+                               value="{{ coalition }}"
+                               required> {{ coalition }}-coalition
+                        {% if coalition == 'AB' %}
+                        (with party A which has received {{ resources_player_A }} seats)
+                        {% elif coalition == 'BC' %}
+                        (with party C which has received {{ resources_player_C }} seats)
+                        {% elif coalition == 'ABC' %}
+                        (with party A which has received {{ resources_player_A }} seats
+                        and
+                        with party C which has received {{ resources_player_C }} seats)
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+        {% elif player.position == 'C' %}
+            <ul>
+                {% for coalition in possible_coalitions_C %}
+                    <li>
+                        <input data-desc="{{ coalition }}" type="radio" name="counter_proposed_coalition"
+                               value="{{ coalition }}"
+                               required> {{ coalition }}-coalition
+                        {% if coalition == 'AC' %}
+                        (with party A which has received {{ resources_player_A }} seats)
+                        {% elif coalition == 'BC' %}
+                        (with party B which has received {{ resources_player_B }} seats)
+                        {% elif coalition == 'ABC' %}
+                        (with party A which has received {{ resources_player_A }} seats
+                        and
+                        with party B which has received {{ resources_player_B }} seats)
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+        {% elif earned %}
+
+        {% if player.position == 'A' %}
+            <ul>
+                {% for coalition in possible_coalitions_A %}
+                    <li>
+                        <input data-desc="{{ coalition }}" type="radio" name="counter_proposed_coalition"
+                               value="{{ coalition }}"
+                               required> {{ coalition }}-coalition
+                        {% if coalition == 'AB' %}
+                        (with party B which has earned {{ resources_player_B }} seats)
+                        {% elif coalition == 'AC' %}
+                        (with party C which has earned {{ resources_player_C }} seats)
+                        {% elif coalition == 'ABC' %}
+                        (with party B which has earned {{ resources_player_B }} seats
+                        and
+                        with party C which has earned {{ resources_player_C }} seats)
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+        {% elif player.position == 'B' %}
+            <ul>
+                {% for coalition in possible_coalitions_B %}
+                    <li>
+                        <input data-desc="{{ coalition }}" type="radio" name="counter_proposed_coalition"
+                               value="{{ coalition }}"
+                               required> {{ coalition }}-coalition
+                        {% if coalition == 'AB' %}
+                        (with party A which has earned {{ resources_player_A }} seats)
+                        {% elif coalition == 'BC' %}
+                        (with party C which has earned {{ resources_player_C }} seats)
+                        {% elif coalition == 'ABC' %}
+                        (with party A which has earned {{ resources_player_A }} seats
+                        and
+                        with party C which has earned {{ resources_player_C }} seats)
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+
+        {% elif player.position == 'C' %}
+            <ul>
+                {% for coalition in possible_coalitions_C %}
+                    <li>
+                        <input data-desc="{{ coalition }}" type="radio" name="counter_proposed_coalition"
+                               value="{{ coalition }}"
+                               required> {{ coalition }}-coalition
+                        {% if coalition == 'AC' %}
+                        (with party A which has earned {{ resources_player_A }} seats)
+                        {% elif coalition == 'BC' %}
+                        (with party B which has earned {{ resources_player_B }} seats)
+                        {% elif coalition == 'ABC' %}
+                        (with party A which has earned {{ resources_player_A }} seats
+                        and
+                        with party B which has earned {{ resources_player_B }} seats)
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+
+        {% endif %}
+
+
+
+        <p id="total-alert" class="alert alert-warning text-normal" style="display:none">
+            You need to distribute a total of ${{ total_payoff }} million.
+            You entered a total of $<span id="total-offers"></span> million.
+        </p>
+
+        <p id="emptyfield-alert" class="alert alert-warning text-normal" style="display:none">
+            You have not entered a valid number in one of the boxes. Please enter a valid number between 0 and {{ total_payoff }}.
+        </p>
+
+
+        <ul id="allocate_to_players">
+
+        <p id="allocate_to_players_text">
+            Indicate your offered distribution: how much money will your party get and how much will the other party
+            get.
+            (Note: this should total ${{ total_payoff }} million).
+        </p>
+
+            <li class="{% if player.position == 'A' %}you{% endif %}" id="counter_allocate_to_player_A">
+
+                {% if not earned %}
+                Party <strong class="text-success">A</strong>
+                (received <strong class="text-success">{{ resources_player_A }}</strong> seats)
+                {% elif earned  %}
+                Party <strong class="text-success">A</strong>
+                (earned <strong class="text-success">{{ resources_player_A }}</strong> seats)
+
+                {% endif %}
+                {% formfield player.counter_allocate_to_player_A label='$' %} million
+                {% if player.position == 'A' %}
+                    <small class="text-info">(This is you)</small>{% endif %}
+            </li>
+            <li class="{% if player.position == 'B' %}you{% endif %}" id="counter_allocate_to_player_B">
+
+                {% if not earned %}
+                Party <strong class="text-success">B</strong>
+                (received <strong class="text-success">{{ resources_player_B}}</strong> seats)
+                {% elif earned %}
+                Party <strong class="text-success">B</strong>
+                (earned <strong class="text-success">{{ resources_player_B }}</strong> seats)
+
+                {% endif %}
+                {% formfield player.counter_allocate_to_player_B label='$' %} million
+                {% if player.position == 'B' %}
+                    <small class="text-info">(This is you)</small>{% endif %}
+            </li>
+            <li class="{% if player.position == 'C' %}you{% endif %}" id="counter_allocate_to_player_C">
+
+                {% if not earned %}
+                Party <strong class="text-success">C</strong>
+                (received <strong class="text-success">{{ resources_player_C }}</strong> seats)
+                {% elif earned %}
+                Party <strong class="text-success">C</strong>
+                (earned <strong class="text-success">{{ resources_player_C }}</strong> seats)
+
+                {% endif %}
+                {% formfield player.counter_allocate_to_player_C label='$' %} million
+                {% if player.position == 'C' %}
+                    <small class="text-info">(This is you)</small>{% endif %}
+            </li>
+        </ul>
+
+
+
+        <div class="row">
+            <div class="col-md-1 col-md-offset-11">
+                <button id="show-confirm" class="btn btn-primary btn-large btn-primary">
+                    Next
+                </button>
+            </div>
+        </div>
+
+    </div> <!-- bargain -->
+
+
+    <div id="confirm" style="display: none;">
+
+
+        <p>
+            You made the following offer:
+        </p>
+
+        <p>
+            <span id="offer-desc"></span>
+        </p>
+
+        <div class="well">
+            <p>Are you sure you want to submit this offer?</p>
+        </div>
+        <ul id="confirmation">
+            <li><input type="radio" name="confirmation" value="yes" required="" disabled> Yes</li>
+            <li><input type="radio" name="confirmation" value="no" required="" disabled> No</li>
+        </ul>
+
+
+
+        <div class="row">
+            <div class="col-md-1 col-md-offset-11">
+                <button id="real-submit" class="btn btn-primary btn-large btn-primary">
+                    Next
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+
+            var form = $("form#form")[0]
+            var $bargain = $("div#bargain");
+            var $confirm = $("div#confirm");
+            var $totalAlert = $("p#total-alert");
+            var $coalitionAlert = $("p#coalition-alert");
+            var $emptyfieldAlert = $("p#emptyfield-alert");
+            var $confirmation = $("#confirmation input");
+            var allocate_A = $("#counter_allocate_to_player_A");
+            var allocate_B = $("#counter_allocate_to_player_B");
+            var allocate_C = $("#counter_allocate_to_player_C");
+            var text = $("#allocate_to_players_text");
+            var position = {{ player.position|json }};
+
+            allocate_A.hide();
+            allocate_B.hide();
+            allocate_C.hide();
+            text.hide();
+
+
+            function totalOffered() {
+                var total = 0;
+
+                var coalition = $('input[name="counter_proposed_coalition"]:checked').val();
+
+                if (coalition == "AB") {
+                    total = total + parseInt($("#id_counter_allocate_to_player_A").val(), 10) + parseInt($("#id_counter_allocate_to_player_B").val(), 10);
+                } else if (coalition == "AC") {
+                    total = total + parseInt($("#id_counter_allocate_to_player_A").val(), 10) + parseInt($("#id_counter_allocate_to_player_C").val(), 10);
+                } else if (coalition == "BC") {
+                    total = total + parseInt($("#id_counter_allocate_to_player_B").val(), 10) + parseInt($("#id_counter_allocate_to_player_C").val(), 10);
+                } else if (coalition == "ABC") {
+                    total = total + parseInt($("#id_counter_allocate_to_player_A").val(), 10) + parseInt($("#id_counter_allocate_to_player_B").val(), 10) + parseInt($("#id_counter_allocate_to_player_C").val(), 10);
+                }
+
+                return total;
+            }
+
+            function fillConfirm() {
+                var desc = "";
+                var coalition = $('input[name="counter_proposed_coalition"]:checked').val();
+
+                if (position == 'A') {
+                    if (coalition == 'AB'){
+                        desc = "An AB-coalition between yourself and party B, in which you get $" + $("#allocate_to_players li.you input").val() + " million, and party B gets $" + $("#counter_allocate_to_player_B input").val() + " million"}
+                    else if (coalition == 'AC'){
+                        desc = "An AC-coalition between yourself and party C, in which you get $" + $("#allocate_to_players li.you input").val() + " million, and party C gets $" + $("#counter_allocate_to_player_C input").val() + " million"}
+                    else if (coalition == 'ABC'){
+                        desc = "An-ABC coalition between yourself and party B and C, in which you get $" + $("#allocate_to_players li.you input").val() + " million, party B gets $" + $("#counter_allocate_to_player_B input").val() + " million" +', and party C gets $' + $("#counter_allocate_to_player_C input").val() + " million"}
+                    }
+
+                else if (position == 'B'){
+                    if (coalition == 'AB'){
+                        desc = "An AB-coalition between yourself and party A, in which you get $" + $("#allocate_to_players li.you input").val() + " million, and party A gets $" + $("#allocate_to_player_A input").val() + " million"}
+                    else if (coalition == 'BC'){
+                        desc = "A BC-coalition between yourself and party C, in which you get $" + $("#allocate_to_players li.you input").val() + " million, and party C gets $" + $("#counter_allocate_to_player_C input").val() + " million"}
+                    else if (coalition == 'ABC'){
+                        desc = "An-ABC coalition between yourself and party A and C, in which you get $" + $("#allocate_to_players li.you input").val() + " million, party A gets $" + $("#counter_allocate_to_player_A input").val() + " million" +', and party C gets $' + $("counter_#allocate_to_player_C input").val() + " million"}
+                    }
+
+                else if (position == 'C'){
+                    if (coalition == 'AC'){
+                        desc = "An AC-coalition between yourself and party A, in which you get $" + $("counter_#allocate_to_players li.you input").val() + " million, and party A gets $" + $("#counter_allocate_to_player_A input").val() + " million"}
+                    else if (coalition == 'BC'){
+                        desc = "A BC-coalition between yourself and party B, in which you get $" + $("#counter_allocate_to_players li.you input").val() + " million, and party B gets $" + $("#counter_allocate_to_player_B input").val() + " million"}
+                    else if (coalition == 'ABC'){
+                        desc = "An-ABC coalition between yourself and party A and B, in which you get $" + $("#counter_allocate_to_players li.you input").val() + " million, party A gets $" + $("#counter_allocate_to_player_A input").val() + " million" +', and party B gets $' + $("#counter_allocate_to_player_B input").val() + " million"}
+                    }
+
+
+
+                $("#offer-desc").text(desc);
+            }
+
+            $("button#show-confirm").click(function (evt) {
+                evt.preventDefault();
+
+                var coalition = $('input[name="counter_proposed_coalition"]:checked').val();
+
+
+                if (form.checkValidity()) {
+
+
+                    var valid = false;
+
+                    if ((coalition == 'AB' && $("#counter_allocate_to_player_C input").val() > 0) ||
+                        (coalition == 'AC' && $("#counter_allocate_to_player_B input").val() > 0) ||
+                        (coalition == 'BC' && $("#counter_allocate_to_player_A input").val() > 0)) {
+                            valid = false;
+                            $coalitionAlert.show("fast");
+
+                        } else {
+                            valid = true;
+                                    }
+
+                if ((coalition == 'AB' && ($("#counter_allocate_to_player_A input").val() == "" || $("#counter_allocate_to_player_B input").val() == ""))||
+                    (coalition == 'AC' && ($("#counter_allocate_to_player_A input").val() == "" || $("#counter_allocate_to_player_C input").val() == "" ))||
+                    (coalition == 'BC' && ($("#counter_allocate_to_player_B input").val() == "" || $("#counter_allocate_to_player_C input").val() == "" ))||
+                    (coalition == 'ABC' && ($("#counter_allocate_to_player_A input").val() == "" || $("#counter_allocate_to_player_B input").val() == ""  || $("#counter_allocate_to_player_C input").val() == ""))){
+                        valid = false;
+                        $emptyfieldAlert.show("fast");
+
+                } else {
+                        valid = true;
+                }
+
+
+                var total = totalOffered();
+
+                if (total == {{total_payoff}} && valid == true) {
+                    fillConfirm();
+                    $confirmation.prop("disabled", false);
+                    $bargain.hide();
+                    $totalAlert.hide();
+                    $coalitionAlert.hide();
+                    $confirm.show();
+                }
+                else {
+                    if (total != {{total_payoff}}) {
+                        $("#total-offers").text(total);
+                        $totalAlert.show("fast");
+                    }
+                    else {
+                        $totalAlert.hide();
+                    }
+                }
+
+
+            }    else {
+            form.reportValidity();
+                }
+                return false;
+    });
+
+
+
+
+            $("button#real-submit").click(function (evt) {
+                evt.preventDefault();
+                if (form.checkValidity()) {
+                    $confirmation.prop("disabled", true);
+                    var next = ($("input[name=confirmation]:checked").val() == "yes");
+                    if (next) {
+                        form.submit();
+                    } else {
+                        $confirm.hide();
+                        $totalAlert.hide();
+                        $bargain.show();
+                    }
+                } else {
+                    form.reportValidity();
+                }
+                return false;
+            });
+
+            $("input[name$='counter_proposed_coalition']").click(function () {
+                var selected_coalition = $(this).val();
+
+
+
+                if (selected_coalition == "AB") {
+                    allocate_A.show();
+                    allocate_B.show();
+                    allocate_C.hide();
+                    text.show();
+                } else if (selected_coalition == "AC") {
+                    allocate_A.show();
+                    allocate_B.hide();
+                    allocate_C.show();
+                    text.show();
+                } else if (selected_coalition == "BC") {
+                    allocate_A.hide();
+                    allocate_B.show();
+                    allocate_C.show();
+                    text.show();
+                } else if (selected_coalition == "ABC") {
+                    allocate_A.show();
+                    allocate_B.show();
+                    allocate_C.show();
+                    text.show();
+                }
+            });
+
+        })
+    </script>
+{% endblock %}

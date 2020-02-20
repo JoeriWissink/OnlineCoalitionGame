@@ -1,0 +1,72 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Slider task
+{% endblock %}
+
+
+{% block global_styles %}
+
+<style>
+div.row{
+    margin-left: 30px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+        <div class = "row" id = 1> {% formfield player.slider22 %} &emsp; {% formfield player.slider23 %} &emsp; {% formfield player.slider24 %} </div>
+
+        <div class = "row" id = 2> {% formfield player.slider25 %} &emsp; {% formfield player.slider26 %} &emsp; {% formfield player.slider27 %} </div>
+
+        <div class = "row" id = 3> {% formfield player.slider28 %} &emsp; {% formfield player.slider29 %} &emsp; {% formfield player.slider30 %} </div>
+
+    <div class = "row" id = 4> {% formfield player.slider31 %} &emsp; {% formfield player.slider32 %} &emsp; {% formfield player.slider33 %} </div>
+
+    <div class = "row" id = 5> {% formfield player.slider34 %} &emsp; {% formfield player.slider35 %} &emsp; {% formfield player.slider36 %} </div>
+
+    <div class = "row" id = 6> {% formfield player.slider37 %} &emsp; {% formfield player.slider38 %} &emsp; {% formfield player.slider39 %} </div>
+
+    <div class = "row" id = 7> {% formfield player.slider40 %} &emsp; {% formfield player.slider41 %} &emsp; {% formfield player.slider42 %} </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+window.onload = function randomMargin(){
+    var randomnumber1=Math.floor(Math.random()*101) - 50;
+    var randomnumber2=Math.floor(Math.random()*101) - 50;
+    var randomnumber3=Math.floor(Math.random()*101) - 50;
+    var randomnumber4=Math.floor(Math.random()*101) - 50;
+    var randomnumber5=Math.floor(Math.random()*101) - 50;
+    var randomnumber6=Math.floor(Math.random()*101) - 50;
+    var randomnumber7=Math.floor(Math.random()*101) - 50;
+
+    console.log(randomnumber1)
+    console.log(randomnumber2)
+    console.log(randomnumber3)
+    console.log(randomnumber4)
+    console.log(randomnumber5)
+    console.log(randomnumber6)
+    console.log(randomnumber7)
+
+    $('#1').css({"margin-left": randomnumber1+"px"});
+    $('#2').css({"margin-left": randomnumber2+"px"});
+    $('#3').css({"margin-left": randomnumber3+"px"});
+    $('#4').css({"margin-left": randomnumber4+"px"});
+    $('#5').css({"margin-left": randomnumber6+"px"});
+    $('#6').css({"margin-left": randomnumber6+"px"});
+    $('#7').css({"margin-left": randomnumber7+"px"});
+
+}
+
+setInterval(randomMargin, 1000);
+</script>
+
+{% endblock %}

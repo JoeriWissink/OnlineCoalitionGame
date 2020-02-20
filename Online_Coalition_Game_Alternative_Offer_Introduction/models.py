@@ -12,7 +12,7 @@ Your app description
 
 
 class Constants(BaseConstants):
-    name_in_url = 'Online_Coalition_Game_Introduction'
+    name_in_url = 'Online_Coalition_Game_Alternative_Offer_Introduction'
     players_per_group = None
     num_rounds = 1
 

@@ -1,0 +1,41 @@
+{% extends "global/Base.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    End of interaction
+{% endblock %}
+
+{% block content %}
+
+{% if not participant.vars.grouped %}
+
+    <p>You have not been matched within 5 minutes.</p>
+
+{% else %}
+
+    <p>
+        One of the two other participants has left the study.
+    </p>
+
+
+    <p>
+        This unfortunately means that we are unable to continue with negotiations.
+        We're sorry for the inconvenience.
+    </p>
+
+{% endif %}
+
+    <p>
+        Please go to the last page to finish the study and claim your base fee of ${{ base_fee }}.
+    </p>
+
+
+    <div class="row">
+    <div class="col-md-1 col-md-offset-11">
+        {% next_button %}
+    </div>
+
+
+{% endblock %}
+
+

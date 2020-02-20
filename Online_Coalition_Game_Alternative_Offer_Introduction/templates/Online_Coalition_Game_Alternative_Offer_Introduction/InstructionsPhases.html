@@ -48,14 +48,32 @@
 	   <h3><strong>Phase III: Seeing chosen offers</strong></h3>
         <p>
             In Phase III, all negotiators receive feedback about which offers are chosen by whom.
-            If two negotiators have selected the same offer, this coalition is formed and the budget is distributed as proposed.
+            If two negotiators have selected the same offer, a tentative coalition is formed.
         </p>
         
 		<p>
             Of course, it is also possible that no offer is selected by two negotiators.
-            In this case, no coalition is formed and a new bargaining round starts.
+            In this case, no tentative coalition is formed and a new bargaining round starts.
             All parties will then return to Phase I and make a new offer.
-            This process will continue until two parties formed a coalition.
+        </p>
+
+
+        <h3><strong>Phase IV: Making an alternative offer</strong></h3>
+        <p>
+            In Phase IV, the negotiator not included in the tentative offer makes an alternative offer to one of the negotiators in the tentative coalition.
+        </p>
+
+        {% if grand_coalition %}
+
+            <p>
+            When a tentative ABC-coalition including all parties is formed, no alternative offer is made and this step is skipped.
+            </p>
+
+        {% endif %}
+
+		<h3><strong>Phase V: Ratyfing the tentative coalition or accepting the alternative offer</strong></h3>
+        <p>
+            In Phase V, the negotiators in the tentative coalition are asked whether they want to ratify the tentative coalition. If all negotiators in the tentative coalition choose to do this, the tentative coalition becomes the final coalition and the budget is allocated as agreed upon. If, however, the recipient of the alternative offer chooses this alternative offer, the alternative offer becomes the new tentative coalition and a new alternative offer will be made by the one not in the new tentative coaliton.
         </p>
 
 

@@ -1,0 +1,68 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Coalition Formation
+{% endblock %}
+
+{% block content %}
+
+
+    {% if not earned %}
+
+        <p>
+            Which coalitions can be formed is determined by the amount of seats received by each party.
+            The amount of seats each party has is determined by a random draw.
+        </p>
+
+        <p>
+            The random draw is upcoming. By sheer chance, you hope to get a higher number of seats than the other parties.
+            This means that by chance, you might receive a lower or higher number of seats than the other parties.
+            The total budget that the governmental coalition has at its disposal will be a fixed amount.
+        </p>
+
+    {% elif earned %}
+
+        <p>
+            Which coalitions can be formed is determined by the number of seats earned by each party.
+            The number of seats a party has is determined by how many citizens of the municipality vote for the party.
+        </p>
+
+        <p>
+            Elections are upcoming and all three of you have also been hired to campaign in order to attract more voters.
+            By exerting more effort during the campaign, you increase the chance of getting more seats than the other parties.
+        </p>
+
+        <p>
+            Exerting effort during the campaign will be simulated by your performance in a slider task.
+            In this task, the goal is to position as many sliders as you can in the middle of the scale within a given time limit.
+            As the scale goes from 0 to 100, the middle point is exactly 50.
+            If you complete more scales you can earn more seats for your party.
+        </p>
+
+        <p>
+            Of course, the other participants will also complete the slider task to earn seats.
+            This means that you will be competing for the amount of seats.
+            The participant that completes most sliders will earn the most seats for their party.
+            The second best participant will earn fewer seats for their party.
+            The participant that completes the least amount of sliders will earn the fewest seats.
+        </p>
+
+        <p>
+            The total budget that the governmental coalition has at its disposal will be a fixed amount.
+        </p>
+
+    {% endif %}
+
+    <p>
+            On the next screen you will receive information on how to negotiate.
+    </p>
+
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}
