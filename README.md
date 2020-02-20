@@ -1,4 +1,4 @@
-# OnlineCoalitionGame
+# The Online Coalition Game
 An oTree application for three-player coalition formation research
 
 # **Description**
@@ -14,49 +14,51 @@ The Online Coalition Game (OCG) has been developed for conducting (online) three
 3. Copy and paste the following session configurations into your own settings.py file.
 
 
-```SESSION_CONFIGS = [
-        {
-            'name': 'Online_Coalition_Game_One_Step',
-            'display_name': "Online Coalition Game One-Step Protocol",
-            'num_demo_participants': 3,
-            'app_sequence': ['Online_Coalition_Game_Introduction', 'Online_Coalition_Game'],
-            'resources_player_A': 4,
-            'resources_player_B': 3,
-            'resources_player_C': 2,
-            'decision_point': 5,
-            'grand_coalition': False,
-            'total_payoff': 100,
-            'payoff_conversion': 0.05,
-            'incentives': True,
-            'base_fee': 1.00,
-            'select_none': False,
-            'timeout_time': 60 * 5,
-            'earned': False,
-            'slider_time': 30,
-            'comprehension_check': True,
-        },
-        {
-            'name': 'Online_Coalition_Game_Alternative_Offer',
-            'display_name': "Online Coalition Game Dynamic Protocol",
-            'num_demo_participants': 3,
-            'app_sequence': ['Online_Coalition_Game_Alternative_Offer_Introduction', 'Online_Coalition_Game_Alternative_Offer'],
-            'resources_player_A': 4,
-            'resources_player_B': 3,
-            'resources_player_C': 2,
-            'decision_point': 5,
-            'grand_coalition': False,
-            'total_payoff': 100,
-            'payoff_conversion': 0.05,
-            'incentives': True,
-            'base_fee': 1.00,
-            'select_none': False,
-            'timeout_time': 60 * 5,
-            'earned': False,
-            'slider_time': 30,
-            'comprehension_check': True,
-        },
+```
+SESSION_CONFIGS = [
+    {
+        'name': 'Online_Coalition_Game_One_Step',
+        'display_name': "Online Coalition Game One-Step Protocol",
+        'num_demo_participants': 3,
+        'app_sequence': ['Online_Coalition_Game_Introduction', 'Online_Coalition_Game'],
+        'resources_player_A': 4,
+        'resources_player_B': 3,
+        'resources_player_C': 2,
+        'decision_point': 5,
+        'grand_coalition': False,
+        'total_payoff': 100,
+        'payoff_conversion': 0.05,
+        'incentives': True,
+        'base_fee': 1.00,
+        'select_none': False,
+        'timeout_time': 60 * 5,
+        'earned': False,
+        'slider_time': 30,
+        'comprehension_check': True,
+    },
+    {
+        'name': 'Online_Coalition_Game_Alternative_Offer',
+        'display_name': "Online Coalition Game Dynamic Protocol",
+        'num_demo_participants': 3,
+        'app_sequence': ['Online_Coalition_Game_Alternative_Offer_Introduction', 'Online_Coalition_Game_Alternative_Offer'],
+        'resources_player_A': 4,
+        'resources_player_B': 3,
+        'resources_player_C': 2,
+        'decision_point': 5,
+        'grand_coalition': False,
+        'total_payoff': 100,
+        'payoff_conversion': 0.05,
+        'incentives': True,
+        'base_fee': 1.00,
+        'select_none': False,
+        'timeout_time': 60 * 5,
+        'earned': False,
+        'slider_time': 30,
+        'comprehension_check': True,
+    },
 
-    ]
+]
+```
 
 
 To make sure participants can skip to the end of the study if they cannot be matched into a group within a specified amount of time, install the otree_mturk_utils (available on the OCG GitHub page and https://github.com/chapkovski/custom-waiting-page-for-mturk) as well as in the OCG GitHub page. NB: The current version of otree_mturk_utils is not compatible with oTree 2.3 and higher. Although this is not problematic—all features of the OCG are functional on older versions of oTree—otree_mturk_utils is likely to be updated to work with the newest version of oTree.
