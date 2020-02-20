@@ -14,7 +14,7 @@ The Online Coalition Game (OCG) has been developed for conducting (online) three
 3. Copy and paste the following session configurations into your own settings.py file.
 
 
-    SESSION_CONFIGS = [
+```SESSION_CONFIGS = [
         {
             'name': 'Online_Coalition_Game_One_Step',
             'display_name': "Online Coalition Game One-Step Protocol",
