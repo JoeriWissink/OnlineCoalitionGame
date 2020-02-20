@@ -13,8 +13,8 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
-        'name': 'Online_Coalition_Game',
-        'display_name': "Online Coalition Game",
+        'name': 'Online_Coalition_Game_One_Step',
+        'display_name': "Online Coalition Game One-Step Protocol",
         'num_demo_participants': 3,
         'app_sequence': ['Online_Coalition_Game_Introduction', 'Online_Coalition_Game'],
         'resources_player_A': 4,
@@ -28,15 +28,15 @@ SESSION_CONFIGS = [
         'base_fee': 1.00,
         'select_none': False,
         'timeout_time': 60 * 5,
-        'earned': True,
+        'earned': False,
         'slider_time': 30,
         'comprehension_check': True,
     },
     {
-        'name': 'Online_Coalition_Game_wo_instructions',
-        'display_name': "Online Coalition Game without instructions",
+        'name': 'Online_Coalition_Game_Alternative_Offer',
+        'display_name': "Online Coalition Game Dynamic Protocol",
         'num_demo_participants': 3,
-        'app_sequence': ['Online_Coalition_Game'],
+        'app_sequence': ['Online_Coalition_Game_Alternative_Offer_Introduction', 'Online_Coalition_Game_Alternative_Offer'],
         'resources_player_A': 4,
         'resources_player_B': 3,
         'resources_player_C': 2,
@@ -48,10 +48,20 @@ SESSION_CONFIGS = [
         'base_fee': 1.00,
         'select_none': False,
         'timeout_time': 60 * 5,
-        'earned': True,
+        'earned': False,
         'slider_time': 30,
         'comprehension_check': True,
-    }
+    },
+
+]
+
+ROOMS = [
+    dict(
+        name='Lab1',
+        display_name='Lab 1',
+        participant_label_file='Lab1.txt',
+        use_secure_urls=True
+        ),
 ]
 
 
@@ -62,8 +72,6 @@ LANGUAGE_CODE = 'en'
 # e.g. EUR, GBP, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = False
-
-ROOMS = []
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
