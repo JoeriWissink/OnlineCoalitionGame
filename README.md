@@ -9,7 +9,7 @@ The Online Coalition Game (OCG) has been developed for conducting (online) three
 
 1. Installing oTree and starting a new project (see oTree documentation: https://otree.readthedocs.io/en/latest/).
 
-2.Copy the folders Online_Coalition_Game, Online_Coalition_Game_Alternative_Offer, Online_Coalition_Game_Introduction, and Online_Coalition_Game_ _Alternative_Offer_Introduction to your project folder.
+2. Copy the folders Online_Coalition_Game, Online_Coalition_Game_Alternative_Offer, Online_Coalition_Game_Introduction, and Online_Coalition_Game_ _Alternative_Offer_Introduction to your project folder.
 
 3. Copy and paste the following session configurations into your own settings.py file.
 
