@@ -60,5 +60,4 @@ SESSION_CONFIGS = [
 ]
 ```
 
-
-To make sure participants can skip to the end of the study if they cannot be matched into a group within a specified amount of time, install the otree_mturk_utils (available on the OCG GitHub page and https://github.com/chapkovski/custom-waiting-page-for-mturk) as well as in the OCG GitHub page. NB: The current version of otree_mturk_utils is not compatible with oTree 2.3 and higher. Although this is not problematic—all features of the OCG are functional on older versions of oTree—otree_mturk_utils is likely to be updated to work with the newest version of oTree.
+4. Optionally, install the otree_mturk_utils (available on this GitHub page and https://github.com/chapkovski/custom-waiting-page-for-mturk) to enable participants to claim their participation fee after waiting too be matched into a group for a specified number of miniuted. NB: The current version of otree_mturk_utils is not compatible with oTree 2.3 and higher. Although this is not problematic—all features of the OCG are functional on older versions of oTree—otree_mturk_utils is likely to be updated to work with the newest version of oTree.
