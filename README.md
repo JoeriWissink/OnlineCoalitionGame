@@ -62,5 +62,3 @@ SESSION_CONFIGS = [
     },
 ]
 ```
-
-4. See the wiki for more information on configuring and running the Online Coalition Game.
