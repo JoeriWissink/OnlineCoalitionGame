@@ -27,10 +27,12 @@ SESSION_CONFIGS = [
         'incentives': True,
         'base_fee': 1.00,
         'select_none': False,
-        'timeout_time': 60 * 5,
+        'timeout_time': 5 * 60,
         'earned': False,
         'slider_time': 30,
         'comprehension_check': True,
+        'leave_matching': True,
+        'leave_timer': 1 * 60,
     },
     {
         'name': 'Online_Coalition_Game_Alternative_Offer',
@@ -47,10 +49,12 @@ SESSION_CONFIGS = [
         'incentives': True,
         'base_fee': 1.00,
         'select_none': False,
-        'timeout_time': 60 * 5,
+        'timeout_time': 5 * 60,
         'earned': False,
         'slider_time': 30,
         'comprehension_check': True,
+        'leave_matching': True,
+        'leave_timer': 1 * 60,
     },
 
 ]
@@ -82,8 +86,6 @@ DEMO_PAGE_INTRO_HTML = """ """
 SECRET_KEY = ''
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree', 'otree_mturk_utils']
+INSTALLED_APPS = ['otree']
 
-EXTENSION_APPS  = [
-    'otree_mturk_utils',
-]
+EXTENSION_APPS  = []

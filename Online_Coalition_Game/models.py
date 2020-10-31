@@ -22,6 +22,26 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
 
+    def group_by_arrival_time_method(self, waiting_players):
+        positions = iter(Constants.positions)
+        active_players = [p for p in waiting_players if p.participant._current_page_name == 'Waitforgroup']
+        if len(active_players) >= Constants.players_per_group:
+            if not self.session.config['earned']:
+                for p in active_players:
+                    p.position = next(positions)
+                    if p.position == 'A':
+                        p.resources = self.session.config['resources_player_A']
+                    elif p.position == 'B':
+                        p.resources = self.session.config['resources_player_B']
+                    elif p.position == 'C':
+                        p.resources = self.session.config['resources_player_C']
+            return active_players
+        for p in waiting_players:
+            if self.session.config['leave_matching']:
+                if p.waiting_too_long():
+                    p.participant.vars['leftover'] = True
+                    return [p]
+
     resources_AB = models.IntegerField()
     resources_AC = models.IntegerField()
     resources_BC = models.IntegerField()
@@ -96,6 +116,11 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
 
+    def waiting_too_long(self):
+        if self.session.config['leave_matching']:
+            import time
+            return time.time() - self.participant.vars['wait_page_arrival'] > self.session.config['leave_timer']
+
     completion_code = models.StringField()
 
     score = models.IntegerField()
@@ -156,6 +181,8 @@ class Player(BasePlayer):
         earned = self.session.config['earned']
         slider_time = self.session.config['slider_time']
         grand_coalition = self.session.config['grand_coalition']
+        leave_matching = self.session.config['leave_matching']
+        leave_timer = self.session.config['leave_timer']/60
 
         possible_coalitions_A = []
         possible_coalitions_B = []
@@ -203,6 +230,8 @@ class Player(BasePlayer):
                 'earned': earned,
                 'slider_time': slider_time,
                 'grand_coalition': grand_coalition,
+                'leave_matching': leave_matching,
+                'leave_timer': leave_timer,
                 }
 
     def slider_field(label):

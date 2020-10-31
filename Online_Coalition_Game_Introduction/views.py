@@ -106,12 +106,16 @@ class Testresults(Page):
 
 class Groupassignment(Page):
 
-    def vars_for_template(self):
-        return self.player.vars_for_template()
-
     def is_displayed(self):
         if self.participant.vars['kicked'] == False:
             return True
+
+    def vars_for_template(self):
+        return self.player.vars_for_template()
+
+    def before_next_page(self):
+        import time
+        self.participant.vars['wait_page_arrival'] = time.time()
 
 class Kicked(Page):
 

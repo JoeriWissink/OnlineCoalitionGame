@@ -1,0 +1,28 @@
+{% extends "global/WaitPage.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Waiting for other participants
+{% endblock %}
+
+{% block content %}
+
+        <p>
+            Please wait to be matched to other participants.
+        </p>
+
+{% if leave_matching %}
+
+        <p>
+            If you cannot be matched within {{leave)timer}} minutes, the study will end and you will receive your base fee.
+        </p>
+
+{% endif %}
+
+<div class="row">
+    <div class="col-md-1 col-md-offset-11">
+    {% next_button %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,32 +1,15 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
 from .models import Constants
-from otree_mturk_utils.views import CustomMturkPage, CustomMturkWaitPage
 import random
 import string
 
-class Waitforgroup(CustomMturkWaitPage):
-    title_text = "Matching you with participants"
+class Waitforgroup(WaitPage):
+    template_name = 'Online_Coalition_Game/TimerWaitPage.html'
     group_by_arrival_time = True
 
     startwp_timer = 5 * 60
     use_task = False
-
-
-    def get_players_for_group(self, waiting_players):
-        positions = iter(Constants.positions)
-        active_players = [p for p in waiting_players if p.participant._current_page_name == 'Waitforgroup']
-        if len(active_players) >= Constants.players_per_group:
-            if not self.session.config['earned']:
-                for p in active_players:
-                    p.position = next(positions)
-                    if p.position == 'A':
-                        p.resources = self.session.config['resources_player_A']
-                    elif p.position == 'B':
-                        p.resources = self.session.config['resources_player_B']
-                    elif p.position == 'C':
-                        p.resources = self.session.config['resources_player_C']
-            return active_players
 
     def is_displayed(self):
         if self.participant.vars['end_game'] == False and self.round_number == 1 and self.participant.vars['kicked'] == False and self.participant.vars['leftover'] == False:
@@ -35,9 +18,10 @@ class Waitforgroup(CustomMturkWaitPage):
             return False
 
 
+    def vars_for_template(self):
+        return self.player.vars_for_template()
 
-
-class Groupingconfirmation(CustomMturkPage):
+class Groupingconfirmation(Page):
 
 
 
@@ -60,7 +44,7 @@ class Groupingconfirmation(CustomMturkPage):
         self.participant.vars['grouped'] = True
         self.player.leftover_check()
 
-class Sliderinstructions(CustomMturkPage):
+class Sliderinstructions(Page):
 
 
 
@@ -85,7 +69,7 @@ class Sliderinstructions(CustomMturkPage):
     def vars_for_template(self):
         return self.player.vars_for_template()
 
-class Slider(CustomMturkPage):
+class Slider(Page):
 
     def vars_for_template(self):
         return self.player.vars_for_template()
@@ -104,7 +88,7 @@ class Slider(CustomMturkPage):
     def get_form_fields(self):
         return ['slider{}'.format(i) for i in range(1, 22)]
 
-class EndRound1(CustomMturkPage):
+class EndRound1(Page):
 
     def vars_for_template(self):
         return self.player.vars_for_template()
@@ -118,7 +102,7 @@ class EndRound1(CustomMturkPage):
         else:
             return False
 
-class Slider2(CustomMturkPage):
+class Slider2(Page):
 
     def vars_for_template(self):
         return self.player.vars_for_template()
@@ -139,7 +123,7 @@ class Slider2(CustomMturkPage):
     def get_form_fields(self):
         return ['slider{}'.format(i) for i in range(22, 43)]
 
-class EndRound2(CustomMturkPage):
+class EndRound2(Page):
 
     def vars_for_template(self):
         return self.player.vars_for_template()
@@ -153,7 +137,7 @@ class EndRound2(CustomMturkPage):
         else:
             return False
 
-class Slider3(CustomMturkPage):
+class Slider3(Page):
 
     def vars_for_template(self):
         return self.player.vars_for_template()
@@ -253,7 +237,7 @@ class Waitforparticipants(WaitPage):
             p3.resources = self.session.config['resources_player_C']
 
 
-class PositionAssignment(CustomMturkPage):
+class PositionAssignment(Page):
 
     def is_displayed(self):
         if self.participant.vars['end_game'] == False and self.participant.vars['kicked'] == False and self.participant.vars['leftover'] == False and self.session.config['earned'] == True and self.round_number == 1:
@@ -272,7 +256,7 @@ class PositionAssignment(CustomMturkPage):
     def vars_for_template(self):
         return self.player.vars_for_template()
 
-class AssignedPosition(CustomMturkPage):
+class AssignedPosition(Page):
 
     def is_displayed(self):
         if self.participant.vars['end_game'] == False and self.round_number == 1 and self.participant.vars['kicked'] == False and self.participant.vars['leftover'] == False:
@@ -292,7 +276,7 @@ class AssignedPosition(CustomMturkPage):
         self.player.leftover_check()
 
 
-class InstructionsCoalitions(CustomMturkPage):
+class InstructionsCoalitions(Page):
     def vars_for_template(self):
         return self.player.vars_for_template()
 
@@ -310,7 +294,7 @@ class InstructionsCoalitions(CustomMturkPage):
             self.participant.vars['kicked'] = True
         self.player.leftover_check()
 
-class ComprehensionCheck(CustomMturkPage):
+class ComprehensionCheck(Page):
     form_model = 'player'
     form_fields = ['comprehension_money']
 
@@ -348,7 +332,7 @@ class ComprehensionCheck(CustomMturkPage):
         self.player.leftover_check()
 
 
-class ComprehensionCheck2(CustomMturkPage):
+class ComprehensionCheck2(Page):
     form_model = 'player'
     form_fields = ['comprehension_exclusion']
 
@@ -371,7 +355,7 @@ class ComprehensionCheck2(CustomMturkPage):
             self.participant.vars['kicked'] = True
         self.player.leftover_check()
 
-class ComprehensionCheck3(CustomMturkPage):
+class ComprehensionCheck3(Page):
     form_model = 'player'
     form_fields = ['comprehension_coalitions']
 
@@ -431,7 +415,7 @@ class ComprehensionCheck3(CustomMturkPage):
             self.participant.vars['kicked'] = True
         self.player.leftover_check()
 
-class ManipulationCheck2control(CustomMturkPage):
+class ManipulationCheck2control(Page):
 
     def is_displayed(self):
         if self.round_number == 1 and self.participant.vars[
@@ -443,7 +427,7 @@ class ManipulationCheck2control(CustomMturkPage):
     form_model = 'player'
     form_fields = ['manipulation_check2control']
 
-class ManipulationCheck2controlBudget(CustomMturkPage):
+class ManipulationCheck2controlBudget(Page):
 
     def is_displayed(self):
         if self.round_number == 1 and self.participant.vars[
@@ -455,7 +439,7 @@ class ManipulationCheck2controlBudget(CustomMturkPage):
     form_model = 'player'
     form_fields = ['manipulation_check2controlbudget']
 
-class BargainingStarts(CustomMturkPage):
+class BargainingStarts(Page):
 
     def vars_for_template(self):
         return self.player.vars_for_template()
@@ -474,7 +458,7 @@ class BargainingStarts(CustomMturkPage):
             self.participant.vars['kicked'] = True
         self.player.leftover_check()
 
-class NewRound(CustomMturkPage):
+class NewRound(Page):
     def vars_for_template(self):
         return self.player.vars_for_template()
 
@@ -498,7 +482,7 @@ class NewRound(CustomMturkPage):
     def get_timeout_seconds(self):
         return self.session.config['timeout_time']
 
-class PhaseI(CustomMturkPage):
+class PhaseI(Page):
     def vars_for_template(self):
         return self.player.vars_for_template()
 
@@ -552,7 +536,7 @@ class WaitForOffers(WaitPage):
         else:
             return False
 
-class OffersMade(CustomMturkPage):
+class OffersMade(Page):
 
     def is_displayed(self):
         if self.participant.vars['end_game'] == False and self.participant.vars['kicked'] == False and self.participant.vars['leftover'] == False:
@@ -568,7 +552,7 @@ class OffersMade(CustomMturkPage):
             self.participant.vars['kicked'] = True
         self.player.leftover_check()
 
-class PhaseII(CustomMturkPage):
+class PhaseII(Page):
     form_model = 'player'
     form_fields = ['selected_coalition']
 
@@ -727,7 +711,7 @@ class WaitForSelection(WaitPage):
                 p.payoff = self.group.payoff_C * self.session.config['payoff_conversion']
 
 
-class OffersSelected(CustomMturkPage):
+class OffersSelected(Page):
     def is_displayed(self):
         if self.participant.vars['end_game'] == False and self.participant.vars['kicked'] == False and \
                         self.participant.vars['leftover'] == False:
@@ -743,7 +727,7 @@ class OffersSelected(CustomMturkPage):
             self.participant.vars['kicked'] = True
         self.player.leftover_check()
 
-class PhaseIII_Success(CustomMturkPage):
+class PhaseIII_Success(Page):
     def is_displayed(self):
         if self.participant.vars['end_game'] == False and self.group.coalition_formed == 1 and self.participant.vars['kicked'] == False and self.participant.vars['leftover'] == False:
             return True
@@ -843,18 +827,20 @@ class PhaseIII_Success(CustomMturkPage):
 
 
 
-class Payoff(CustomMturkPage):
+class Payoff(Page):
     def is_displayed(self):
         if self.participant.vars['end_game'] == False and self.group.coalition_formed == True and self.participant.vars['kicked'] == False and self.participant.vars['leftover'] == False:
             return True
         else:
             return False
 
+    def vars_for_template(self):
+
+        vars = self.player.vars_for_template()
+        return vars
 
 
-
-
-class PhaseIII_Failure(CustomMturkPage):
+class PhaseIII_Failure(Page):
     def is_displayed(self):
         if self.participant.vars['end_game'] == False and self.group.coalition_formed == False and self.participant.vars['kicked'] == False and self.participant.vars['leftover'] == False:
             return True

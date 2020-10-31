@@ -113,6 +113,10 @@ class Groupassignment(Page):
         if self.participant.vars['kicked'] == False:
             return True
 
+    def before_next_page(self):
+        import time
+        self.participant.vars['wait_page_arrival'] = time.time()
+
 class Kicked(Page):
 
     def is_displayed(self):

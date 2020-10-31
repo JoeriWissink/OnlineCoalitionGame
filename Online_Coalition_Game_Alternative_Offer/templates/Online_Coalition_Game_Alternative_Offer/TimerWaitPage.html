@@ -1,0 +1,16 @@
+{% extends 'otree/WaitPage.html' %}
+{% load otree %}
+{% block title %}Please wait to be matched{% endblock %}
+
+{% block content %}
+
+<p>Waiting for other participants.</p>
+
+{% if leave_matching %}
+
+<p>If you cannot be matched within {{leave_timer}} minute(s), the study will end and you will receive your base fee.</p>
+
+{% endif %}
+
+{% endblock %}
+
