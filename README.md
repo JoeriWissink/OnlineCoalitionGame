@@ -31,10 +31,12 @@ SESSION_CONFIGS = [
         'incentives': True,
         'base_fee': 1.00,
         'select_none': False,
-        'timeout_time': 60 * 5,
+        'timeout_time': 5 * 60,
         'earned': False,
         'slider_time': 30,
         'comprehension_check': True,
+        'leave_matching': True,
+        'leave_timer': 1 * 60,
     },
     {
         'name': 'Online_Coalition_Game_Alternative_Offer',
@@ -51,13 +53,14 @@ SESSION_CONFIGS = [
         'incentives': True,
         'base_fee': 1.00,
         'select_none': False,
-        'timeout_time': 60 * 5,
+        'timeout_time': 5 * 60,
         'earned': False,
         'slider_time': 30,
         'comprehension_check': True,
+        'leave_matching': True,
+        'leave_timer': 1 * 60,
     },
-
 ]
 ```
 
-4. Optionally, install the otree_mturk_utils (available on this GitHub page and https://github.com/chapkovski/custom-waiting-page-for-mturk) to enable participants to claim their participation fee after waiting too be matched into a group for a specified number of miniuted. NB: The current version of otree_mturk_utils is not compatible with oTree 2.3 and higher. Although this is not problematic—all features of the OCG are functional on older versions of oTree—otree_mturk_utils is likely to be updated to work with the newest version of oTree.
+4. See the wiki for more information on configuring and running the Online Coalition Game.
